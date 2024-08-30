@@ -1,5 +1,7 @@
 # src/poker/__init__.py
-from .poker import PokerCard, Rank, Suit
+from .rank import Rank
+from .suit import Suit
+from .poker import PokerCard
 from .deck import PokerDeck
 
 __all__ = ['PokerCard', 'Rank', 'Suit', 'PokerDeck']
