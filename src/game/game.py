@@ -1,5 +1,5 @@
 from typing import List
-from poker import PokerCard, PokerDeck, Player
+from src.poker import PokerCard, PokerDeck, Player
 
 class Game:
     def __init__(self, players: List[Player]) -> None:

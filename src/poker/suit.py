@@ -25,3 +25,6 @@ class Suit(Enum):
 
     def __hash__(self):
         return hash(self._value_)
+    
+    def __deepcopy__(self, memo):
+        return self

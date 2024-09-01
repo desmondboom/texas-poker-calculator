@@ -1,9 +1,9 @@
 from itertools import combinations
 from typing import Counter, List, Tuple
 
-from .hand_ranking import HandRanking
-from ...poker.poker import PokerCard, Rank
-from .hand_rank import HandRank
+from src.game.comparator.hand_ranking import HandRanking
+from src.poker.poker import PokerCard, Rank
+from src.game.comparator.hand_rank import HandRank
 
 def get_best_hand_from_seven(cards: List[PokerCard]) -> Tuple[HandRanking, List[PokerCard]]:
     """给定七张牌，返回最好的五张牌的 HandRanking 以及组成该牌型的牌"""

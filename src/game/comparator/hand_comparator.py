@@ -1,9 +1,9 @@
 from enum import Enum
 from typing import List
 
-from .hand_evaluator import get_best_hand_from_seven
-from ..player import Player
-from ...poker.poker import PokerCard
+from src.game.comparator.hand_evaluator import get_best_hand_from_seven
+from src.game.player import Player
+from src.poker.poker import PokerCard
 
 
 class GameResult(Enum):

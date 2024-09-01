@@ -1,25 +1,27 @@
 import random
 from typing import List
 
-from poker import PokerCard, Rank, Suit
+from src.poker.poker import PokerCard, Rank, Suit
 
 
 class PokerDeck:
-    __deck: List[PokerCard] = []
-    
     def __init__(self, isComplete: bool) -> None:
+        self.__deck: List[PokerCard] = []
         if isComplete:
             self.__deck = [PokerCard(suit, rank) for suit in Suit for rank in Rank]
             
-    def append(self, card: PokerCard) -> None:
+    def __iter__(self):
+        return iter(self.__deck)
+            
+    def append_card(self, card: PokerCard) -> None:
         """将一张牌放入牌堆"""
         self.__deck.append(card)
         
-    def append(self, cards: List[PokerCard]) -> None:
+    def append_cards(self, cards: List[PokerCard]) -> None:
         """将多张牌放入牌堆"""
         self.__deck.extend(cards)
         
-    def remove(self, card: PokerCard) -> bool:
+    def remove_card(self, card: PokerCard) -> bool:
         """将一张牌从牌堆中移除"""
         if card in self.__deck:
             self.__deck.remove(card)
@@ -27,7 +29,7 @@ class PokerDeck:
         else:
             return False
         
-    def remove(self, cards: List[PokerCard]) -> bool:
+    def remove_cards(self, cards: List[PokerCard]) -> bool:
         """将多张牌从牌堆中移除，只有当所有牌都存在时才删除"""
         if all(card in self.__deck for card in cards):
             for card in cards:
