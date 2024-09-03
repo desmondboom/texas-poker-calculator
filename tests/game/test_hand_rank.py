@@ -1,8 +1,8 @@
 import pytest
 
-from ..hand_rank import HandRank
-from ..hand_ranking import HandRanking
-from ....poker import Rank
+from src.game.comparator.hand_rank import HandRank
+from src.game.comparator.hand_ranking import HandRanking
+from src.poker import Rank
 
 @pytest.mark.parametrize(
     "hand1_rank, hand1_high_cards, hand2_rank, hand2_high_cards, expected_result",

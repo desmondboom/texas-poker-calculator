@@ -6,7 +6,7 @@ from src.poker.poker import PokerCard
 
 def main():
     # 创建一副完整的扑克牌堆
-    deck = PokerDeck(isComplete=True)
+    deck = PokerDeck(is_complete=True)
 
     # 创建两个玩家
     player1 = Player("Alice")

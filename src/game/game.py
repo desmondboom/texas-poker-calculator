@@ -1,9 +1,11 @@
 from typing import List
-from src.poker import PokerCard, PokerDeck, Player
+
+from src.game.player import Player
+from src.poker import PokerCard, PokerDeck
 
 class Game:
     def __init__(self, players: List[Player]) -> None:
-        self.deck = PokerDeck(isComplete=True)  # 创建一个完整的扑克牌堆
+        self.deck = PokerDeck(is_complete=True)  # 创建一个完整的扑克牌堆
         self.players = players  # 绑定玩家
         self.community_cards: List[PokerCard] = []
         

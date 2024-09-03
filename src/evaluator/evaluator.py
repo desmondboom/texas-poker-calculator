@@ -8,7 +8,7 @@ from src.poker.deck import PokerDeck
 
 class Evaluator:
     @staticmethod
-    def calc_win_prop_in_two_player(player1: Player, player2: Player, deck: PokerDeck = PokerDeck(isComplete=True)):
+    def calc_win_prop_in_two_player(player1: Player, player2: Player, deck: PokerDeck = PokerDeck(is_complete=True)):
         """计算两位玩家之间的胜率, 在没有发公共牌的情况下"""
         wins = 0
         trials = 0

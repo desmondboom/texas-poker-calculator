@@ -1,8 +1,8 @@
 import pytest
 
-from ....poker import PokerCard
-from ...player import Player
-from ..hand_comparator import GameResult, compare_two_players
+from src.poker import PokerCard
+from src.game.player import Player
+from src.game.comparator.hand_comparator import GameResult, compare_two_players
 
 
 @pytest.mark.parametrize(

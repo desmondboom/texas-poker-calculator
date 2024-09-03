@@ -1,6 +1,6 @@
 import pytest
 
-from ..poker import PokerCard, Rank, Suit
+from src.poker.poker import PokerCard, Rank, Suit
 
 
 # 参数化测试正确解析的案例
