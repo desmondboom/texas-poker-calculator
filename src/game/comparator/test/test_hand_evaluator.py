@@ -1,11 +1,15 @@
 import unittest
 
-from ....poker.poker import PokerCard, Rank, Suit
-from ..hand_evaluator import get_hand_rank
-from ..hand_rank import HandRank
+from src.game.comparator.hand_rank import HandRank
+from src.game.comparator.hand_ranking_evaluate import (
+    DefaultHandRankingEvaluateStrategy, HandEvaluator)
+from src.poker.poker import PokerCard, Rank, Suit
 
 
 class TestGetHandRank(unittest.TestCase):
+    def setUp(self):
+        """在每个测试方法执行前初始化 HandEvaluator"""
+        self.hand_evaluator = HandEvaluator(DefaultHandRankingEvaluateStrategy())    
 
     def test_royal_flush(self):
         """测试皇家同花顺"""
@@ -16,7 +20,7 @@ class TestGetHandRank(unittest.TestCase):
             PokerCard(Suit.HEARTS, Rank.J),
             PokerCard(Suit.HEARTS, Rank.TEN)
         ]
-        result = get_hand_rank(cards)
+        result = self.hand_evaluator.get_hand_rank(cards)
         self.assertEqual(result.rank, HandRank.ROYAL_FLUSH)
 
     def test_straight_flush(self):
@@ -28,7 +32,7 @@ class TestGetHandRank(unittest.TestCase):
             PokerCard(Suit.SPADES, Rank.SIX),
             PokerCard(Suit.SPADES, Rank.FIVE)
         ]
-        result = get_hand_rank(cards)
+        result = self.hand_evaluator.get_hand_rank(cards)
         self.assertEqual(result.rank, HandRank.STRAIGHT_FLUSH)
 
     def test_four_of_a_kind(self):
@@ -40,7 +44,7 @@ class TestGetHandRank(unittest.TestCase):
             PokerCard(Suit.CLUBS, Rank.NINE),
             PokerCard(Suit.HEARTS, Rank.TWO)
         ]
-        result = get_hand_rank(cards)
+        result = self.hand_evaluator.get_hand_rank(cards)
         self.assertEqual(result.rank, HandRank.FOUR_OF_A_KIND)
 
     def test_full_house(self):
@@ -52,7 +56,7 @@ class TestGetHandRank(unittest.TestCase):
             PokerCard(Suit.HEARTS, Rank.TWO),
             PokerCard(Suit.SPADES, Rank.TWO)
         ]
-        result = get_hand_rank(cards)
+        result = self.hand_evaluator.get_hand_rank(cards)
         self.assertEqual(result.rank, HandRank.FULL_HOUSE)
 
     def test_flush(self):
@@ -64,7 +68,7 @@ class TestGetHandRank(unittest.TestCase):
             PokerCard(Suit.HEARTS, Rank.THREE),
             PokerCard(Suit.HEARTS, Rank.TWO)
         ]
-        result = get_hand_rank(cards)
+        result = self.hand_evaluator.get_hand_rank(cards)
         self.assertEqual(result.rank, HandRank.FLUSH)
 
     def test_straight(self):
@@ -76,7 +80,7 @@ class TestGetHandRank(unittest.TestCase):
             PokerCard(Suit.DIAMONDS, Rank.SIX),
             PokerCard(Suit.HEARTS, Rank.FIVE)
         ]
-        result = get_hand_rank(cards)
+        result = self.hand_evaluator.get_hand_rank(cards)
         self.assertEqual(result.rank, HandRank.STRAIGHT)
 
     def test_three_of_a_kind(self):
@@ -88,7 +92,7 @@ class TestGetHandRank(unittest.TestCase):
             PokerCard(Suit.CLUBS, Rank.SEVEN),
             PokerCard(Suit.HEARTS, Rank.TWO)
         ]
-        result = get_hand_rank(cards)
+        result = self.hand_evaluator.get_hand_rank(cards)
         self.assertEqual(result.rank, HandRank.THREE_OF_A_KIND)
 
     def test_two_pair(self):
@@ -100,7 +104,7 @@ class TestGetHandRank(unittest.TestCase):
             PokerCard(Suit.CLUBS, Rank.K),
             PokerCard(Suit.HEARTS, Rank.TWO)
         ]
-        result = get_hand_rank(cards)
+        result = self.hand_evaluator.get_hand_rank(cards)
         self.assertEqual(result.rank, HandRank.TWO_PAIR)
 
     def test_one_pair(self):
@@ -112,7 +116,7 @@ class TestGetHandRank(unittest.TestCase):
             PokerCard(Suit.HEARTS, Rank.THREE),
             PokerCard(Suit.DIAMONDS, Rank.TWO)
         ]
-        result = get_hand_rank(cards)
+        result = self.hand_evaluator.get_hand_rank(cards)
         self.assertEqual(result.rank, HandRank.ONE_PAIR)
 
     def test_high_card(self):
@@ -124,7 +128,7 @@ class TestGetHandRank(unittest.TestCase):
             PokerCard(Suit.DIAMONDS, Rank.THREE),
             PokerCard(Suit.HEARTS, Rank.TWO)
         ]
-        result = get_hand_rank(cards)
+        result = self.hand_evaluator.get_hand_rank(cards)
         self.assertEqual(result.rank, HandRank.HIGH_CARD)
 
 if __name__ == '__main__':

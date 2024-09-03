@@ -1,7 +1,7 @@
 import copy
 import itertools
 
-from src.game.comparator.hand_evaluator import get_best_hand_from_seven
+from src.game.comparator.hand_ranking_evaluate import DefaultHandRankingEvaluateStrategy, HandEvaluator
 from src.game.player import Player
 from src.poker.deck import PokerDeck
 
@@ -13,6 +13,8 @@ class Evaluator:
         wins = 0
         trials = 0
         local_deck = copy.deepcopy(deck)
+        
+        evaluator = HandEvaluator(DefaultHandRankingEvaluateStrategy())
         
         # 1. 确定牌堆中没有两位玩家的手牌
         all_player_cards = player1.show_hand() + player2.show_hand()
@@ -26,8 +28,8 @@ class Evaluator:
             all_cards_player2 = player2.show_hand() + list(community_combo)
 
             # 计算每位玩家的最佳五张牌
-            best_hand_player1, _ = get_best_hand_from_seven(all_cards_player1)
-            best_hand_player2, _ = get_best_hand_from_seven(all_cards_player2)
+            best_hand_player1, _ = evaluator.get_best_hand_from_seven(all_cards_player1)
+            best_hand_player2, _ = evaluator.get_best_hand_from_seven(all_cards_player2)
             
             # 比较两位玩家的最佳手牌
             win = best_hand_player1 >= best_hand_player2
