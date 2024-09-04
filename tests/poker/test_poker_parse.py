@@ -23,16 +23,17 @@ def test_parse_valid(card_str, expected_suit, expected_rank):
     assert card.suit == expected_suit
     assert card.rank == expected_rank
 
+
 # 参数化测试无效输入的案例
 @pytest.mark.parametrize(
     "invalid_card_str",
     [
-        "Z2",   # 无效的花色
-        "H1",   # 无效的牌面
-        "D123", # 不存在的牌面
-        "C$",   # 非法字符
-        "S10K", # 多余字符
-        "",     # 空字符串
+        "Z2",  # 无效的花色
+        "H1",  # 无效的牌面
+        "D123",  # 不存在的牌面
+        "C$",  # 非法字符
+        "S10K",  # 多余字符
+        "",  # 空字符串
     ]
 )
 def test_parse_invalid(invalid_card_str):
