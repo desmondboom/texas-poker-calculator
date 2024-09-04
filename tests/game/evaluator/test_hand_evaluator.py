@@ -2,14 +2,15 @@ import unittest
 
 from src.game.evaluator.hand_rank import HandRank
 from src.game.evaluator.hand_ranking_evaluate import (
-    DefaultHandRankingEvaluateStrategy, HandEvaluator)
+    HandEvaluator)
+from src.game.evaluator.strategy.default_strategy import DefaultHandRankingEvaluateStrategy
 from src.poker.poker import PokerCard, Rank, Suit
 
 
 class TestGetHandRank(unittest.TestCase):
     def setUp(self):
         """在每个测试方法执行前初始化 HandEvaluator"""
-        self.hand_evaluator = HandEvaluator(DefaultHandRankingEvaluateStrategy())    
+        self.hand_evaluator = HandEvaluator(DefaultHandRankingEvaluateStrategy())
 
     def test_royal_flush(self):
         """测试皇家同花顺"""
@@ -130,6 +131,7 @@ class TestGetHandRank(unittest.TestCase):
         ]
         result = self.hand_evaluator.get_hand_rank(cards)
         self.assertEqual(result.rank, HandRank.HIGH_CARD)
+
 
 if __name__ == '__main__':
     unittest.main()

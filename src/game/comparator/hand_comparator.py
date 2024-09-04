@@ -2,7 +2,8 @@ from enum import Enum
 from typing import List
 
 from src.game.evaluator.hand_ranking_evaluate import (
-    DefaultHandRankingEvaluateStrategy, HandEvaluator)
+    HandEvaluator)
+from src.game.evaluator.strategy.default_strategy import DefaultHandRankingEvaluateStrategy
 from src.game.player import Player
 from src.poker.poker import PokerCard
 

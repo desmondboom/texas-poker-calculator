@@ -1,7 +1,8 @@
 import copy
 import itertools
 
-from src.game.evaluator.hand_ranking_evaluate import DefaultHandRankingEvaluateStrategy, HandEvaluator
+from src.game.evaluator.hand_ranking_evaluate import HandEvaluator
+from src.game.evaluator.strategy.default_strategy import DefaultHandRankingEvaluateStrategy
 from src.game.player import Player
 from src.poker.deck import PokerDeck
 
