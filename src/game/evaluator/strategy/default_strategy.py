@@ -68,7 +68,7 @@ class DefaultHandRankingEvaluateStrategy(HandRankingEvaluateStrategy):
         if rank_count_values == [4, 1]:
             return HandRanking(HandRank.FOUR_OF_A_KIND, sorted_ranks_by_count)
 
-        # 如果是三条和一对（满堂红，或称作葫芦）
+        # 如果是葫芦
         if rank_count_values == [3, 2]:
             return HandRanking(HandRank.FULL_HOUSE, sorted_ranks_by_count)
 
