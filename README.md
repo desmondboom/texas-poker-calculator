@@ -24,7 +24,7 @@ Additionally, the Evaluator strategy used is the default one (traversing all pos
 cards `C(7,5)=21`), which means the scale of traversal is in the tens of millions.
 The runtime is about 20 minutes, and there is significant room for improvement.
 
-<img width="400" src="./assests/stage-1-result.jpg">
+<img width="400" src="assets/stage-1-result.jpg">
 
 ## Project
 
