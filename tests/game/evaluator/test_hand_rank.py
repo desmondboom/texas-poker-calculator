@@ -1,7 +1,7 @@
 import pytest
 
-from src.game.comparator.hand_rank import HandRank
-from src.game.comparator.hand_ranking import HandRanking
+from src.game.evaluator.hand_rank import HandRank
+from src.game.evaluator.hand_ranking import HandRanking
 from src.poker import Rank
 
 @pytest.mark.parametrize(

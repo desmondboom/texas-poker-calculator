@@ -1,7 +1,7 @@
 import unittest
 
-from src.game.comparator.hand_rank import HandRank
-from src.game.comparator.hand_ranking_evaluate import (
+from src.game.evaluator.hand_rank import HandRank
+from src.game.evaluator.hand_ranking_evaluate import (
     DefaultHandRankingEvaluateStrategy, HandEvaluator)
 from src.poker.poker import PokerCard, Rank, Suit
 

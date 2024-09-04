@@ -1,8 +1,8 @@
 from functools import total_ordering
 from typing import List
 
+from src.game.evaluator.hand_rank import HandRank
 from src.poker import Rank
-from src.game.comparator.hand_rank import HandRank
 
 
 @total_ordering
