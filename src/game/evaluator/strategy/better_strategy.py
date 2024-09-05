@@ -3,7 +3,6 @@ from typing import List, Tuple
 
 from src.game.evaluator.hand_rank import HandRank
 from src.game.evaluator.hand_ranking import HandRanking
-from src.game.evaluator.strategy.default_strategy import DefaultHandRankingEvaluateStrategy
 from src.game.evaluator.strategy.strategy import HandRankingEvaluateStrategy
 from src.game.evaluator.strategy.utils import sort_hand_card, get_hand_card_rank
 from src.poker import PokerCard, Rank, Suit
@@ -150,5 +149,5 @@ class BetterHandRankingEvaluateStrategy(HandRankingEvaluateStrategy):
 
     def get_hand_rank(self, cards: List[PokerCard]) -> HandRanking:
         """给定一组牌(五张)，返回 HandRanking 对象，表示这组牌的牌型和高牌"""
-
-        return DefaultHandRankingEvaluateStrategy().get_hand_rank(cards)
+        ranking, _ = self.get_best_hand_from_seven(cards)
+        return ranking
