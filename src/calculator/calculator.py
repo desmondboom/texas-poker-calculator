@@ -1,6 +1,7 @@
 import copy
 import itertools
 
+from src.game.comparator.hand_comparator import get_game_result, GameResult
 from src.game.evaluator.hand_ranking_evaluate import HandEvaluator
 from src.game.evaluator.strategy.better_strategy import BetterHandRankingEvaluateStrategy
 from src.game.player import Player
@@ -33,12 +34,14 @@ class Calculator:
             best_hand_player2, _ = evaluator.get_best_hand_from_seven(all_cards_player2)
 
             # 比较两位玩家的最佳手牌
-            win = best_hand_player1 >= best_hand_player2
+            win: GameResult = get_game_result(best_hand_player1, best_hand_player2)
             print(
-                f"#{trials} Community combo: {' '.join(card.display() for card in community_combo)} Player1-Win: {win}"
+                f"#{trials} Community combo: {' '.join(card.display() for card in community_combo)} Player1-Win: {win.name}"
             )
-            if win:
+            if win == GameResult.WIN:
                 wins += 1
+            elif win == GameResult.TIE:
+                wins += 0.5
 
         # 3. 计算并返回胜率
         win_probability = wins / trials if trials > 0 else 0

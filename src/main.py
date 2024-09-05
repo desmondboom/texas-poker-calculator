@@ -21,8 +21,8 @@ def main():
     deck.shuffle()  # 确保发牌前牌堆是随机的
     player1.draw_card(PokerCard.parse("HA"))
     player1.draw_card(PokerCard.parse("DA"))
-    player2.draw_card(PokerCard.parse("HK"))
-    player2.draw_card(PokerCard.parse("DK"))
+    player2.draw_card(PokerCard.parse("CA"))
+    player2.draw_card(PokerCard.parse("SA"))
 
     # 输出玩家手牌
     print(f"Player 1: {player1.name} has {[card.display() for card in player1.show_hand()]}")
