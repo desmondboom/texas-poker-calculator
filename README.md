@@ -1,6 +1,7 @@
 # texas-poker-computer
 
 ---
+
 ## Description
 
 这个仓库旨在建立德州扑克规则的代码基础，并且构建一套能够使用不同的算法去计算手牌获胜概率的计算系统。
@@ -15,16 +16,25 @@ winning probabilities using various algorithms.
 能够使用遍历所有公共牌组合的办法，使用统计的方法去计算两个已知手牌的玩家的胜率。
 这个方法非常缓慢，需要遍历的情况有 `C(48,5)=1,712,304` 种可能的公共牌。
 此外，使用的Evaluator策略为Default的（遍历七张牌中所有可能的五张牌组合 `C(7,5)=21` ），
-这意味着遍历的量级在千万级别。运行一次的时间在20min左右，有很大提升空间。
+这意味着遍历的量级在千万级别。运行一次的时间在50min左右，有很大提升空间。
 
 This method uses a statistical approach to calculate the win rate for two players with known hands by
 traversing all combinations of community cards. This method is very slow, requiring traversal of
 `C(48,5)=1,712,304` possible combinations of community cards.
 Additionally, the Evaluator strategy used is the default one (traversing all possible five-card combinations from seven
 cards `C(7,5)=21`), which means the scale of traversal is in the tens of millions.
-The runtime is about 20 minutes, and there is significant room for improvement.
+The runtime is about 50 minutes, and there is significant room for improvement.
 
-<img width="400" src="assets/stage-1-result.jpg">
+<img width="400" src="assets/stage-1-result.png">
+
+### Stage 2
+
+使用完全规则的方法，设计了一个更好的七张牌判断牌型的 Evaluator，大幅度降低复杂度，运行一次的时间直接降低到了 3min 左右。
+
+Using a method based on complete rules, a better Evaluator for determining hand types with seven cards has been
+designed, significantly reducing complexity. The runtime has been directly reduced to about 3 minutes.
+
+<img width="400" src="assets/stage-2-result.png">
 
 ## Project
 
@@ -63,12 +73,14 @@ src/
 * `game`模块定义了牌局的相关信息
 * `evaluator`模块是计算一组牌中最大牌型的模块，可以实现和选取不同的策略
 * `calculator`模块是胜率计算的模块，可以完成不同的情景的胜率计算
+
 ---
+
 * The `poker` module is used to define and describe the ranks and suits of poker cards.
 * The `game` module defines information related to the game.
-* The `evaluator` module calculates the highest hand from a set of cards and allows for the implementation and selection of different strategies.
+* The `evaluator` module calculates the highest hand from a set of cards and allows for the implementation and selection
+  of different strategies.
 * The `calculator` module is responsible for calculating win probabilities under various scenarios.
-
 
 ### Unit Tests
 
