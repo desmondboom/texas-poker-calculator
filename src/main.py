@@ -1,3 +1,5 @@
+import time
+
 from src.calculator.calculator import Calculator
 from src.game.player import Player
 from src.poker.deck import PokerDeck
@@ -5,6 +7,9 @@ from src.poker.poker import PokerCard
 
 
 def main():
+    # 开始计时
+    start_time = time.time()
+
     # 创建一副完整的扑克牌堆
     deck = PokerDeck(is_complete=True)
 
@@ -25,6 +30,13 @@ def main():
 
     win_prop_player1 = Calculator.calc_win_prop_in_two_player(player1, player2)
     print(f"Player 1 win probability: {win_prop_player1:.2%}")
+
+    # 结束计时并输出耗时
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    minutes = int(elapsed_time // 60)
+    seconds = int(elapsed_time % 60)
+    print(f"Time taken: {minutes}m{seconds}s")
 
 
 if __name__ == "__main__":
