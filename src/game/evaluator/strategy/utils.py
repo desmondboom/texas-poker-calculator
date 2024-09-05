@@ -25,3 +25,7 @@ def sort_hand_card(cards: List[PokerCard]) -> List[PokerCard]:
         -card.rank.value,  # 按 Rank 大小降序
         card.suit,  # 按 Suit 升序
     ))
+
+
+def get_hand_card_rank(cards: List[PokerCard]) -> List[Rank]:
+    return [card.rank for card in cards]

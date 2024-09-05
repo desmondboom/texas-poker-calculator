@@ -2,7 +2,7 @@ import copy
 import itertools
 
 from src.game.evaluator.hand_ranking_evaluate import HandEvaluator
-from src.game.evaluator.strategy.default_strategy import DefaultHandRankingEvaluateStrategy
+from src.game.evaluator.strategy.better_strategy import BetterHandRankingEvaluateStrategy
 from src.game.player import Player
 from src.poker.deck import PokerDeck
 
@@ -15,7 +15,7 @@ class Calculator:
         trials = 0
         local_deck = copy.deepcopy(deck)
 
-        evaluator = HandEvaluator(DefaultHandRankingEvaluateStrategy())
+        evaluator = HandEvaluator(BetterHandRankingEvaluateStrategy())
 
         # 1. 确定牌堆中没有两位玩家的手牌
         all_player_cards = player1.show_hand() + player2.show_hand()

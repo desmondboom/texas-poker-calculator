@@ -218,7 +218,7 @@ def test_get_best_hand_from_seven(strategy, description, cards, expected_rank, e
     hand_evaluator = HandEvaluator(strategy)
     best_hand, best_combination = hand_evaluator.get_best_hand_from_seven(cards)
 
-    assert best_hand.rank == expected_rank, error_message_with_strategy(description, strategy)
+    assert best_hand.ranking == expected_rank, error_message_with_strategy(description, strategy)
     assert best_combination == expected_combination, error_message_with_strategy(description, strategy)
 
 

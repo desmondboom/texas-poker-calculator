@@ -126,7 +126,7 @@ def test_get_hand_rank(strategy, description, cards, expected_rank):
     """测试不同策略下的牌型评估"""
     hand_evaluator = HandEvaluator(strategy)
     result = hand_evaluator.get_hand_rank(cards)
-    assert result.rank == expected_rank, error_message_with_strategy(description, strategy)
+    assert result.ranking == expected_rank, error_message_with_strategy(description, strategy)
 
 
 if __name__ == "__main__":

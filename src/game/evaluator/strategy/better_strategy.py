@@ -5,7 +5,7 @@ from src.game.evaluator.hand_rank import HandRank
 from src.game.evaluator.hand_ranking import HandRanking
 from src.game.evaluator.strategy.default_strategy import DefaultHandRankingEvaluateStrategy
 from src.game.evaluator.strategy.strategy import HandRankingEvaluateStrategy
-from src.game.evaluator.strategy.utils import sort_hand_card
+from src.game.evaluator.strategy.utils import sort_hand_card, get_hand_card_rank
 from src.poker import PokerCard, Rank, Suit
 
 
@@ -31,7 +31,7 @@ class BetterHandRankingEvaluateStrategy(HandRankingEvaluateStrategy):
 
         # 查找可能的同花牌
         is_flash = False
-        flush_cards = []
+        flush_cards: List[PokerCard] = []
         for suit, count in suit_counts.items():
             if count >= 5:
                 is_flash = True
@@ -42,7 +42,6 @@ class BetterHandRankingEvaluateStrategy(HandRankingEvaluateStrategy):
         is_straight = False
         straight_high_card = None
         rank_sequence = sorted(set(ranks), reverse=True)
-        print(rank_sequence)
         for start_index in range(len(rank_sequence) - 4):
             if all(rank_sequence[i].value - 1 == rank_sequence[i + 1].value for
                    i in range(start_index, start_index + 4)):
@@ -55,18 +54,22 @@ class BetterHandRankingEvaluateStrategy(HandRankingEvaluateStrategy):
             for start_index in range(len(flush_cards) - 4):
                 if all(flush_cards[i].rank.value - 1 == flush_cards[i + 1].rank.value for i in
                        range(start_index, start_index + 4)):
+                    hand_card = flush_cards[start_index:start_index + 5]
+                    hand_card_rank = get_hand_card_rank(hand_card)
                     if flush_cards[start_index].rank == Rank.A:
-                        return (HandRanking(HandRank.ROYAL_FLUSH, flush_cards[start_index:start_index + 5]),
-                                flush_cards[start_index:start_index + 5])
-                    return (HandRanking(HandRank.STRAIGHT_FLUSH, flush_cards[start_index:start_index + 5]),
-                            flush_cards[start_index:start_index + 5])
+                        return (HandRanking(HandRank.ROYAL_FLUSH, hand_card_rank),
+                                hand_card)
+                    return (HandRanking(HandRank.STRAIGHT_FLUSH, hand_card_rank),
+                            hand_card)
 
         # 四条
         for rank, count in rank_counts.items():
             if count == 4:
                 four_cards = [card for card in sorted_cards if card.rank == rank]
                 kicker_card = [card for card in sorted_cards if card.rank != rank][0]
-                return HandRanking(HandRank.FOUR_OF_A_KIND, four_cards + [kicker_card]), four_cards + [kicker_card]
+                hand_card = four_cards + [kicker_card]
+                hand_card_rank = get_hand_card_rank(hand_card)
+                return HandRanking(HandRank.FOUR_OF_A_KIND, hand_card_rank), hand_card
 
         # 葫芦
         three_card_rank = None
@@ -80,12 +83,16 @@ class BetterHandRankingEvaluateStrategy(HandRankingEvaluateStrategy):
         if three_card_rank and pair_card_rank:
             three_cards = [card for card in sorted_cards if card.rank == three_card_rank][:3]
             pair_cards = [card for card in sorted_cards if card.rank == pair_card_rank][:2]
-            return HandRanking(HandRank.FULL_HOUSE, three_cards + pair_cards), three_cards + pair_cards
+            hand_card = three_cards + pair_cards
+            hand_card_rank = get_hand_card_rank(hand_card)
+            return HandRanking(HandRank.FULL_HOUSE, hand_card_rank), hand_card
 
         # 同花
         if is_flash:
             sorted_flush_cards = sorted(flush_cards, key=lambda card: card.rank.value, reverse=True)
-            return HandRanking(HandRank.FLUSH, sorted_flush_cards[:5]), sorted_flush_cards[:5]
+            hand_card = sorted_flush_cards[:5]
+            hand_card_rank = get_hand_card_rank(hand_card)
+            return HandRanking(HandRank.FLUSH, hand_card_rank), hand_card
 
         # 顺子
         if is_straight:
@@ -97,13 +104,16 @@ class BetterHandRankingEvaluateStrategy(HandRankingEvaluateStrategy):
                     if len(straight_cards) == 5:
                         break
                     current_value -= 1
-            return HandRanking(HandRank.STRAIGHT, [card.rank for card in straight_cards]), straight_cards
+            hand_card_rank = get_hand_card_rank(straight_cards)
+            return HandRanking(HandRank.STRAIGHT, hand_card_rank), straight_cards
 
         # 三条
         if three_card_rank:
-            three_cards = [card for card in sorted_cards if card.rank == three_card_rank][:3]
-            kickers = [card for card in sorted_cards if card.rank != three_card_rank][:2]
-            return HandRanking(HandRank.THREE_OF_A_KIND, three_cards + kickers), three_cards + kickers
+            three_cards: List[PokerCard] = [card for card in sorted_cards if card.rank == three_card_rank][:3]
+            kickers: List[PokerCard] = [card for card in sorted_cards if card.rank != three_card_rank][:2]
+            hand_card: List[PokerCard] = three_cards + kickers
+            hand_card_rank = get_hand_card_rank(hand_card)
+            return HandRanking(HandRank.THREE_OF_A_KIND, hand_card_rank), hand_card
 
         # 两对
         pairs = []
@@ -122,15 +132,21 @@ class BetterHandRankingEvaluateStrategy(HandRankingEvaluateStrategy):
 
         if len(pairs) == 4 and kicker:
             # 如果找到了两对并且有kicker
-            return HandRanking(HandRank.TWO_PAIR, pairs + [kicker]), pairs + [kicker]
+            hand_card = pairs + [kicker]
+            hand_card_rank = get_hand_card_rank(hand_card)
+            return HandRanking(HandRank.TWO_PAIR, hand_card_rank), hand_card
 
         # 一对
         if len(pairs) == 2:
             kickers = [card for card in sorted_cards if card.rank != pairs[0].rank][:3]
-            return HandRanking(HandRank.ONE_PAIR, pairs + kickers), pairs + kickers
+            hand_card = pairs + kickers
+            hand_card_rank = get_hand_card_rank(hand_card)
+            return HandRanking(HandRank.ONE_PAIR, hand_card_rank), hand_card
 
         # 高牌
-        return HandRanking(HandRank.HIGH_CARD, sorted_cards[:5]), sorted_cards[:5]
+        hand_card = sorted_cards[:5]
+        hand_card_rank = get_hand_card_rank(hand_card)
+        return HandRanking(HandRank.HIGH_CARD, hand_card_rank), hand_card
 
     def get_hand_rank(self, cards: List[PokerCard]) -> HandRanking:
         """给定一组牌(五张)，返回 HandRanking 对象，表示这组牌的牌型和高牌"""

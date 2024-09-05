@@ -8,18 +8,18 @@ from src.poker import Rank
 @total_ordering
 class HandRanking:
     """手牌的牌型, 可以用于大小的比较"""
-    def __init__(self, rank: HandRank, high_cards: List[Rank]) -> None:
-        self.rank = rank  
-        self.high_cards = high_cards
+
+    def __init__(self, ranking: HandRank, high_cards_ranks: List[Rank]) -> None:
+        self.ranking = ranking
+        self.high_cards_ranks = high_cards_ranks
 
     def __lt__(self, other: 'HandRanking') -> bool:
-        if self.rank == other.rank:
-            return self.high_cards < other.high_cards
-        return self.rank < other.rank
+        if self.ranking == other.ranking:
+            return self.high_cards_ranks < other.high_cards_ranks
+        return self.ranking < other.ranking
 
     def __eq__(self, other: 'HandRanking') -> bool:
-        return self.rank == other.rank and self.high_cards == other.high_cards
+        return self.ranking == other.ranking and self.high_cards_ranks == other.high_cards_ranks
 
     def __repr__(self) -> str:
-        return f"HandRanking(rank={self.rank}, high_cards={[str(card) for card in self.high_cards]})"
-    
+        return f"HandRanking(rank={self.ranking}, high_cards={[str(card) for card in self.high_cards_ranks]})"
