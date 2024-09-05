@@ -2,6 +2,7 @@ from typing import List
 
 from src.game.evaluator.strategy.better_strategy import BetterHandRankingEvaluateStrategy
 from src.game.evaluator.strategy.default_strategy import DefaultHandRankingEvaluateStrategy
+from src.game.evaluator.strategy.rule_strategy import RuleHandRankingEvaluateStrategy
 from src.game.evaluator.strategy.strategy import HandRankingEvaluateStrategy
 
 
@@ -12,5 +13,6 @@ def error_message_with_strategy(test_desc: str, strategy: HandRankingEvaluateStr
 def get_strategies() -> List[HandRankingEvaluateStrategy]:
     return [
         DefaultHandRankingEvaluateStrategy(),
-        BetterHandRankingEvaluateStrategy()
+        BetterHandRankingEvaluateStrategy(),
+        RuleHandRankingEvaluateStrategy()
     ]
