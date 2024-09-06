@@ -29,7 +29,9 @@ def main():
     print(f"Player 2: {player2.name} has {[card.display() for card in player2.show_hand()]}")
 
     calculator = Calculator()
-    win_prop_player1 = calculator.calc_win_prop_in_two_player(player1, player2)
+    # win_prop_player1 = calculator.calc_win_prop_in_two_player(player1, player2)
+    # win_prop_player1 = calculator.monte_carlo_simulate_win_probability(player1, player2)
+    win_prop_player1 = calculator.calc_win_prop_monte_carlo(player1, player2)
     print(f"Player 1 win probability: {win_prop_player1:.2%}")
 
     # 结束计时并输出耗时
