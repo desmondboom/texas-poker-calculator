@@ -23,12 +23,15 @@ def get_game_result(player1_rank: HandRanking, player2_rank: HandRanking) -> Gam
         return GameResult.TIE
 
 
-def compare_two_players(player1: Player, player2: Player, community_cards: List[PokerCard]) -> GameResult:
+def compare_two_players(
+        player1: Player,
+        player2: Player,
+        community_cards: List[PokerCard],
+        evaluator: HandEvaluator = HandEvaluator(DefaultHandRankingEvaluateStrategy())
+) -> GameResult:
     # 合并每位玩家的手牌和公共牌
     all_cards_player1 = player1.show_hand() + community_cards
     all_cards_player2 = player2.show_hand() + community_cards
-
-    evaluator = HandEvaluator(DefaultHandRankingEvaluateStrategy())
 
     # 获取每位玩家的最佳五张牌的手牌排名
     best_hand_player1, _ = evaluator.get_best_hand_from_seven(all_cards_player1)

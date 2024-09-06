@@ -1,7 +1,7 @@
 import copy
 import itertools
 
-from src.game.comparator.hand_comparator import get_game_result, GameResult
+from src.game.comparator.hand_comparator import GameResult, compare_two_players
 from src.game.evaluator.hand_ranking_evaluate import HandEvaluator
 from src.game.evaluator.strategy.better_strategy import BetterHandRankingEvaluateStrategy
 from src.game.player import Player
@@ -26,17 +26,13 @@ class Calculator:
         # 2. 循环遍历，从剩下的牌组中遍历所有可能的五张牌的情况
         for community_combo in itertools.combinations(local_deck, 5):
             trials += 1
-            all_cards_player1 = player1.show_hand() + list(community_combo)
-            all_cards_player2 = player2.show_hand() + list(community_combo)
-
-            # 计算每位玩家的最佳五张牌
-            best_hand_player1, _ = evaluator.get_best_hand_from_seven(all_cards_player1)
-            best_hand_player2, _ = evaluator.get_best_hand_from_seven(all_cards_player2)
 
             # 比较两位玩家的最佳手牌
-            win: GameResult = get_game_result(best_hand_player1, best_hand_player2)
+            win: GameResult = compare_two_players(player1, player2, list(community_combo), evaluator)
             print(
-                f"#{trials} Community combo: {' '.join(card.display() for card in community_combo)} Player1-Win: {win.name}"
+                f"{trials} "
+                f"Community combo: {' '.join(card.display() for card in community_combo)}"
+                f" Player1-Win: {win.name}"
             )
             if win == GameResult.WIN:
                 wins += 1
