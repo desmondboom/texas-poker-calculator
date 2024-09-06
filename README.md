@@ -36,6 +36,15 @@ designed, significantly reducing complexity. The runtime has been directly reduc
 
 <img width="400" src="assets/stage-2-result.png">
 
+### Stage 3
+
+使用多进程（并非多线程）的方法优化循环结构，大幅提高速度，运行一次的时间降到了 1m30s 左右。
+
+By optimizing the loop structure with multiprocessing (not multithreading), the speed has been significantly increased,
+reducing the runtime to about 1 minute and 30 seconds.
+
+<img width="400" src="assets/stage-3-result.png">
+
 ## Project
 
 ### Structure
