@@ -3,23 +3,38 @@ from enum import Enum
 
 class Rank(Enum):
     """扑克牌的点数"""
-    A = (14, 'A')
-    K = (13, 'K')
-    Q = (12, 'Q')
-    J = (11, 'J')
-    TEN = (10, '10')
-    NINE = (9, '9')
-    EIGHT = (8, '8')
-    SEVEN = (7, '7')
-    SIX = (6, '6')
-    FIVE = (5, '5')
-    FOUR = (4, '4')
-    THREE = (3, '3')
-    TWO = (2, '2')
+    A = 14
+    K = 13
+    Q = 12
+    J = 11
+    TEN = 10
+    NINE = 9
+    EIGHT = 8
+    SEVEN = 7
+    SIX = 6
+    FIVE = 5
+    FOUR = 4
+    THREE = 3
+    TWO = 2
 
-    def __init__(self, value: int, display: str):
-        self._value_ = value  # 设置枚举的内部值
-        self.display = display  # 可供展示的字符串
+    def __init__(self, value: int):
+        self.display = self._generate_display(value)  # 可供展示的字符串
+
+    @staticmethod
+    def _generate_display(value):
+        """根据数值生成显示用的字符串"""
+        if 1 < value < 11:
+            return str(value)
+        elif value == 11:
+            return 'J'
+        elif value == 12:
+            return 'Q'
+        elif value == 13:
+            return 'K'
+        elif value == 14:
+            return 'A'
+        else:
+            raise ValueError("无效的扑克牌点数")
 
     @classmethod
     def from_string(cls, s: str):
@@ -31,16 +46,16 @@ class Rank(Enum):
 
     def __lt__(self, other):
         if isinstance(other, Rank):
-            return self._value_ < other._value_
+            return self.value < other.value
         return NotImplemented
 
     def __eq__(self, other):
         if isinstance(other, Rank):
-            return self._value_ == other._value_
+            return self.value == other.value
         return NotImplemented
 
     def __hash__(self):
-        return hash(self._value_)
+        return hash(self.value)
 
     def __deepcopy__(self, memo):
         return self

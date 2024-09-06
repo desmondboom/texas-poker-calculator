@@ -15,7 +15,7 @@ class PokerCard:
         return hash((self.suit, self.rank))
 
     def display(self) -> str:
-        return f"{self.suit.symbol}{self.rank.display}"
+        return f"{self.suit.symbol()}{self.rank.display}"
 
     def __str__(self) -> str:
         return self.display()
