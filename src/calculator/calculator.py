@@ -4,6 +4,8 @@ import multiprocessing
 import random
 from functools import partial
 
+import matplotlib.pyplot as plt
+
 from src.game.comparator.hand_comparator import GameResult, compare_two_players
 from src.game.evaluator.hand_ranking_evaluate import HandEvaluator
 from src.game.evaluator.strategy.better_strategy import BetterHandRankingEvaluateStrategy
@@ -123,14 +125,16 @@ class Calculator:
             player1: Player,
             player2: Player,
             deck: PokerDeck = PokerDeck(is_complete=True),
-            num_simulations: int = 100_000
+            num_simulations: int = 200_000
     ):
         """使用蒙特卡洛模拟来估计玩家1的胜率, 打印出拟合图像来展示拟合状态"""
-        # TODO: 打印图像
         local_deck = self.remove_player_cards(deck, player1, player2)
         all_combinations = list(itertools.combinations(local_deck, 5))
         wins = 0
         trials = 0
+
+        # 用于绘图的数据列表
+        x_data, y_data = [], []
 
         print("开始蒙特卡洛模拟，样本量为", num_simulations)
         for _ in range(num_simulations):
@@ -141,8 +145,20 @@ class Calculator:
             win_probability = wins / trials
 
             if trials % 100 == 0:
+                x_data.append(trials)
+                y_data.append(win_probability)
                 print(f"After {trials} trials, current Player1 win probability: {win_probability:.4f}")
 
+        # 绘制结果图
+        plt.figure(figsize=(10, 6))
+        plt.plot(x_data, y_data, marker='o', linestyle='-', color='b', markersize=3)
+        plt.title('Monte Carlo Simulation of Winning Probability')
+        plt.xlabel('Number of Trials')
+        plt.ylabel('Win Probability')
+        plt.grid(True)
+        plt.show()
+
+        win_probability = wins / trials if trials > 0 else 0
         print("Final win probability:", f"{win_probability:.4f}")
         return win_probability
 

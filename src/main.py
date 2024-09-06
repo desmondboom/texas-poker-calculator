@@ -22,7 +22,7 @@ def main():
     player1.draw_card(PokerCard.parse("HA"))
     player1.draw_card(PokerCard.parse("DA"))
     player2.draw_card(PokerCard.parse("CA"))
-    player2.draw_card(PokerCard.parse("SA"))
+    player2.draw_card(PokerCard.parse("CK"))
 
     # 输出玩家手牌
     print(f"Player 1: {player1.name} has {[card.display() for card in player1.show_hand()]}")
@@ -30,8 +30,8 @@ def main():
 
     calculator = Calculator()
     # win_prop_player1 = calculator.calc_win_prop_in_two_player(player1, player2)
-    # win_prop_player1 = calculator.monte_carlo_simulate_win_probability(player1, player2)
-    win_prop_player1 = calculator.calc_win_prop_monte_carlo(player1, player2)
+    win_prop_player1 = calculator.monte_carlo_simulate_win_probability(player1, player2)
+    # win_prop_player1 = calculator.calc_win_prop_monte_carlo(player1, player2)
     print(f"Player 1 win probability: {win_prop_player1:.2%}")
 
     # 结束计时并输出耗时

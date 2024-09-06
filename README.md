@@ -56,6 +56,13 @@ multiprocessing, the time has been optimized to about 5 seconds, which is entire
 
 <img width="400" src="assets/stage-4-result.png">
 
+下面是使用蒙特卡洛模拟 `♥A, ♦A` 与 `♣A, ♣K` 对局的结果，可以看到在 `50_000` 次模拟之后已经接近稳定。
+
+Below are the results of using Monte Carlo simulations for a matchup between `♥A, ♦A` and `♣A, ♣K`. It can be seen that
+after `50,000` simulations, the results are already approaching stability.
+
+<img width="400" src="assets/monte-carlo-sim-1.png">
+
 ## Project
 
 ### Structure
