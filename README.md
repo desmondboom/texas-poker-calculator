@@ -45,6 +45,17 @@ reducing the runtime to about 1 minute and 30 seconds.
 
 <img width="400" src="assets/stage-3-result.png">
 
+### Stage 4
+
+增加蒙特卡洛模拟，使用样本量在 `100,000` 量级，误差可以基本控制在 `0.3%` 以下。
+时间有了更大幅度提高，测试两个手牌相对的胜率，多进程的情况下，时间已经优化到`5s` 左右，是完全可以接受的了。
+
+Monte Carlo simulations have been added, using a sample size of around 100,000, with the error generally controlled
+below 0.3%. The time efficiency has significantly improved; testing the relative win rates of two hands, with
+multiprocessing, the time has been optimized to about 5 seconds, which is entirely acceptable.
+
+<img width="400" src="assets/stage-4-result.png">
+
 ## Project
 
 ### Structure
