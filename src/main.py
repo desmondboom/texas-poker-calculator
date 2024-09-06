@@ -28,7 +28,8 @@ def main():
     print(f"Player 1: {player1.name} has {[card.display() for card in player1.show_hand()]}")
     print(f"Player 2: {player2.name} has {[card.display() for card in player2.show_hand()]}")
 
-    win_prop_player1 = Calculator.calc_win_prop_in_two_player_multi_process(player1, player2)
+    calculator = Calculator()
+    win_prop_player1 = calculator.calc_win_prop_in_two_player(player1, player2)
     print(f"Player 1 win probability: {win_prop_player1:.2%}")
 
     # 结束计时并输出耗时

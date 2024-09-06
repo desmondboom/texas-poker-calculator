@@ -3,7 +3,7 @@ from typing import List
 
 from src.game.evaluator.hand_ranking import HandRanking
 from src.game.evaluator.hand_ranking_evaluate import HandEvaluator
-from src.game.evaluator.strategy.default_strategy import DefaultHandRankingEvaluateStrategy
+from src.game.evaluator.strategy.better_strategy import BetterHandRankingEvaluateStrategy
 from src.game.player import Player
 from src.poker.poker import PokerCard
 
@@ -27,7 +27,7 @@ def compare_two_players(
         player1: Player,
         player2: Player,
         community_cards: List[PokerCard],
-        evaluator: HandEvaluator = HandEvaluator(DefaultHandRankingEvaluateStrategy())
+        evaluator: HandEvaluator = HandEvaluator(BetterHandRankingEvaluateStrategy())
 ) -> GameResult:
     # 合并每位玩家的手牌和公共牌
     all_cards_player1 = player1.show_hand() + community_cards
